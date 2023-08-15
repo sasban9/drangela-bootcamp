@@ -1,5 +1,5 @@
 //jshint esversion:6
-require("dotenv").config();
+require("dotenv").config(); // require dotenv
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
@@ -7,6 +7,8 @@ const mongoose = require("mongoose");
 const encrypt = require("mongoose-encryption");
 
 const app = express();
+
+// console.log(process.env.API_KEY);
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -23,8 +25,7 @@ const userSchema = new mongoose.Schema({
   password: String,
 });
 
-const secret = "Thisisourlittlesecret.sasban";
-userSchema.plugin(encrypt, { secret: secret, encryptedFields: ['password'] });
+userSchema.plugin(encrypt, { secret: process.env.SECRET, encryptedFields: ['password'] });
 
 const User = new mongoose.model("User", userSchema);
 
@@ -52,7 +53,6 @@ app
     User.findOne({ email: username })
       .then((foundUser) => {
         if (foundUser.password === password) {
-          // console.log('sasban', foundUser.email, foundUser.password)
           res.render("secrets");
         }
       })

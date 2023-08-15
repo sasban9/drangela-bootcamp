@@ -1,5 +1,11 @@
 ### Section 39: Commands for terminal
 
+Lecture 341
+
+Tells us how to put .env variables on Heroku deployment
+
+---
+
 Lecture 340
 
 `npm i mongoose-encryption`

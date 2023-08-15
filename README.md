@@ -1,5 +1,11 @@
 ### Section 39: Commands for terminal
 
+Lecture 342
+
+`npm i md5`
+
+---
+
 Lecture 341
 
 Tells us how to put .env variables on Heroku deployment

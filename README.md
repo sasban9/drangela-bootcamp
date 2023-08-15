@@ -1,5 +1,11 @@
 ### Section 39: Commands for terminal
 
+Lecture 346
+
+`npm i passport passport-local passport-local-mongoose express-session`
+
+---
+
 Lecture 344
 
 `node --version`

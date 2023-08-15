@@ -1,5 +1,11 @@
 Section 39: Commands for terminal
 
+Lecture 338
+
+`npm i mongoose`
+
+---
+
 Lecture 337
 
 `npm init -y`

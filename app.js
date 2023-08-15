@@ -40,6 +40,7 @@ const userSchema = new mongoose.Schema({
   email: String,
   password: String,
   googleId: String,
+  secret: String
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -96,10 +97,37 @@ app.get("/logout", (req, res) => {
   });
 });
 
-app.get("/secrets", (req, res) => {
-  if (req.isAuthenticated()) res.render("secrets");
-  // redirect to secrets if user is already authenticated
+app.get("/secrets",function(req,res){
+  User.find({"secret":{$ne:null}})
+  .then(function (foundUsers) {
+    res.render("secrets",{usersWithSecrets:foundUsers});
+    })
+  .catch(function (err) {
+    console.log(err);
+    })
+});
+
+app.get("/submit", (req, res) => {
+  if (req.isAuthenticated()) res.render("submit");
   else res.redirect("/login");
+});
+
+app.post("/submit", function (req, res) {
+  console.log(req.user);
+  User.findById(req.user)
+    .then(foundUser => {
+      if (foundUser) {
+        foundUser.secret = req.body.secret;
+        return foundUser.save();
+      }
+      return null;
+    })
+    .then(() => {
+      res.redirect("/secrets");
+    })
+    .catch(err => {
+      console.log(err);
+    });
 });
 
 app.get(

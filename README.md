@@ -1,4 +1,10 @@
-Section 39: Commands for terminal
+### Section 39: Commands for terminal
+
+Lecture 340
+
+`npm i mongoose-encryption`
+
+---
 
 Lecture 338
 

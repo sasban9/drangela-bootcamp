@@ -3,7 +3,8 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
-const { mongoose } = require("mongoose");
+const mongoose = require("mongoose");
+const encrypt = require("mongoose-encryption");
 
 const app = express();
 
@@ -17,10 +18,13 @@ app.use(
 
 mongoose.connect(process.env.MONGODB_CONNECT + "userDB");
 
-const userSchema = {
+const userSchema = new mongoose.Schema({
   email: String,
   password: String,
-};
+});
+
+const secret = "Thisisourlittlesecret.sasban";
+userSchema.plugin(encrypt, { secret: secret, encryptedFields: ['password'] });
 
 const User = new mongoose.model("User", userSchema);
 
@@ -48,6 +52,7 @@ app
     User.findOne({ email: username })
       .then((foundUser) => {
         if (foundUser.password === password) {
+          // console.log('sasban', foundUser.email, foundUser.password)
           res.render("secrets");
         }
       })
@@ -65,7 +70,8 @@ app
       email: req.body.username,
       password: req.body.password,
     });
-    newUser.save()
+    newUser
+      .save()
       .then(() => res.render("secrets"))
       .catch((err) => console.log(err));
   });

@@ -1,5 +1,14 @@
 ### Section 39: Commands for terminal
 
+Lecture 344
+
+`node --version`
+`nvm install 10.15.0`
+`npm i bcrypt`
+`npm i bcrypt@3.0.2` // install specific version
+
+---
+
 Lecture 342
 
 `npm i md5`
